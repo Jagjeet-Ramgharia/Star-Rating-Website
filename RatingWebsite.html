@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Ratings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+        h1{
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px;
+            
+        }
+        .star-rating{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-image: url('background.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        .stars{
+            width: 400px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .star{
+            list-style: none;
+            font-size: 4rem;
+            padding-left: 20px;
+            color: wheat;
+        }
+        .star:first-child{
+            padding-left: 0;
+        }
+        img{
+            box-shadow: 1px -6px 22px 1px rgba(77,71,77,1);
+            border-radius: 10px;
+        }
+        .output{
+            width: 400px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            background: #00b894;
+            font-size: 1.2rem;
+            box-shadow: 2px 2px 1px 1px rgba(77,71,77,1);
+        }
+        .next{
+            width: 100px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background: #00b894;
+            font-size: 1.2rem;
+            outline: none;
+            border: none;
+        }
+        .next:hover{
+            background: white;
+            color: #00b894;
+            border: 2px solid #00b894;
+            cursor: pointer;
+            transition: .7s ease-in-out;
+        }
+        .orange{
+            color: orange;
+        }
+        .yellow{
+            color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <h1>Give Ratings According to you.</h1>
+    
+    <div class="star-rating">
+        <img src="https://picsum.photos/400/300/?random" />
+        <ul class="stars">
+            <li class="star"><i class="fa fa-star"></i></li>
+            <li class="star"><i class="fa fa-star"></i></li>
+            <li class="star"><i class="fa fa-star"></i></li>
+            <li class="star"><i class="fa fa-star"></i></li>
+            <li class="star"><i class="fa fa-star"></i></li>
+        </ul>
+        <p class="output"> Ratings </p>
+        <br>
+        <button class="next" onclick="nextPage()"> NEXT </button>
+    </div>
+
+    <script>
+        const stars = document.querySelectorAll('.star');
+        const output = document.querySelector('.output');
+
+        for(x=0; x<stars.length; x++){
+            stars[x].starValue = (x+1);
+            //stars[x].addEventListener('click', function(){
+            //console.log("clicked");
+        //})
+                ["click","mouseover","mouseout"].forEach(function(e){
+                    stars[x].addEventListener(e , showRating);
+                })
+        }
+
+        function showRating(e){
+            let type = e.type;
+            let starValue = this.starValue;
+            //console.log(starValue);
+
+            if(type === 'click'){
+                if(starValue > 1){
+                    output.innerHTML = "You Gave this " +starValue+ " stars."
+                }
+            }
+            stars.forEach(function(elem, ind){
+                if(type === 'click'){
+                    if(ind<starValue){
+                        elem.classList.add('orange');
+                    }else{
+                        elem.classList.remove('orange');
+                    }
+                }
+
+                if(type === 'mouseover'){
+                    if(ind<starValue){
+                        elem.classList.add('yellow');
+                    }else{
+                        elem.classList.remove('yellow');
+                    }
+                }
+
+                if(type === 'mouseout'){
+                    elem.classList.remove('yellow');
+                }
+            })
+
+        }
+
+        function nextPage(){
+            window.location.reload();
+        }
+    </script>
+</body>
+</html>
